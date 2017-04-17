@@ -5,7 +5,7 @@ public class Bomb {
 
     public Bomb(SchedulerService schedulerService, long bombTimer) {
         // your code here
-        System.out.println("Bomb has set. It should explode after " + bombTimer + "!");
+        System.out.println("Bomb has set. It should explode after " + bombTimer + " seconds!");
     }
 
     public void expload() {
