@@ -14,15 +14,25 @@ public class SchedulerService {
 
     public void gmTick(long frameMillis) {
         long currentTime = serverTime.addAndGet(frameMillis);
-        SortedMap<Long, Job> jobsToExecute = awaitingJobs.tailMap(currentTime);
+//        SortedMap<Long, Job> jobsToExecute = awaitingJobs.tailMap(currentTime);
+        SortedMap<Long, Job> jobsToExecute = awaitingJobs.subMap((long) 0, currentTime);
         for (Map.Entry<Long, Job> longJobEntry : jobsToExecute.entrySet()) {
-           //some code here
+            //some code here
+            long time = longJobEntry.getKey();
+            Job job = longJobEntry.getValue();
+            try {
+                job.execute();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            awaitingJobs.remove(time);
         }
         System.out.println("tick-tock. Time is " + serverTime);
     }
 
     public void submit(Job job, long timestamp) {
         //some code here
+        awaitingJobs.put(timestamp + getServerTime(), job);
     }
 
     public long getServerTime() {
