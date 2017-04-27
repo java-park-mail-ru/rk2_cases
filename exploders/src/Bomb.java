@@ -8,7 +8,7 @@ public class Bomb {
         System.out.println("Bomb has set. It should explode after " + bombTimer + " seconds!");
     }
 
-    public void expload() {
+    public void explode() {
         System.out.println("Bomb has exploded!");
     }
 }
