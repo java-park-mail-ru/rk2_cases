@@ -1,10 +1,11 @@
-/**
- * Created by Solovyev on 09/04/2017.
- */
-public class Bomb {
+public class Bomb{
 
-    public Bomb(SchedulerService schedulerService, long bombTimer) {
-        // your code here
+    public Bomb(final SchedulerService schedulerService, final long bombTimer) {
+        schedulerService.submit(new Job() {
+            public void execute() throws Exception {
+                explode();
+            }
+        }, bombTimer + schedulerService.getServerTime());
         System.out.println("Bomb has set. It should explode after " + bombTimer + " seconds!");
     }
 
