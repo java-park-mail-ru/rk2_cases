@@ -21,7 +21,7 @@ public class SchedulerService {
             try {
                 job.execute();
             } catch (Exception e) {
-                System.out.println("Can't execute this job");
+                System.out.println("This bomb isn't ready");
             }
         }
         awaitingJobs = awaitingJobs.tailMap(currentTime);
