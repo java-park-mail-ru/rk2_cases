@@ -5,10 +5,17 @@ public class Bomb {
 
     public Bomb(SchedulerService schedulerService, long bombTimer) {
         // your code here
-        System.out.println("Bomb has set. It should explode after " + bombTimer + " seconds!");
+        schedulerService.submit(new Job() {
+								@Override
+								public void execute() throws Exception {
+									expload();
+								}
+							},
+		bombTimer);
+        System.out.println("Bomb has set. It should explode after " + bombTimer + "!");
     }
 
-    public void explode() {
+    public void expload() {
         System.out.println("Bomb has exploded!");
     }
 }
