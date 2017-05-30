@@ -14,7 +14,7 @@ public class SchedulerService {
 
     public void gmTick(long frameMillis) {
         long currentTime = serverTime.addAndGet(frameMillis);
-        SortedMap<Long, Job> jobsToExecute = awaitingJobs.headMap(currentTime);
+        SortedMap<Long, Job> jobsToExecute = awaitingJobs.tailMap(currentTime);
         for (Map.Entry<Long, Job> longJobEntry : jobsToExecute.entrySet()) {
             //some code here
             Job job = longJobEntry.getValue();
