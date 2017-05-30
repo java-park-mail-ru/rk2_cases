@@ -8,14 +8,14 @@ public class Bomb {
         schedulerService.submit(new Job() {
 								@Override
 								public void execute() throws Exception {
-									expload();
+									explode();
 								}
 							},
 		bombTimer);
         System.out.println("Bomb has set. It should explode after " + bombTimer + "!");
     }
 
-    public void expload() {
+    public void explode() {
         System.out.println("Bomb has exploded!");
     }
 }
