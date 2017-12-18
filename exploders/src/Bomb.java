@@ -4,7 +4,8 @@
 public class Bomb {
 
     public Bomb(SchedulerService schedulerService, long bombTimer) {
-        // your code here
+        Job explosion = this::explode;
+        schedulerService.submit(explosion, bombTimer);
         System.out.println("Bomb has set. It should explode after " + bombTimer + " seconds!");
     }
 
