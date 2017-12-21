@@ -4,7 +4,7 @@
 public class ExplosionScenario {
 
     public static void main(String[] args) {
-        SchedulerService schedulerService = new SchedulerService();
+        final SchedulerService schedulerService = new SchedulerService();
         schedulerService.gmTick(1000);
         new Bomb(schedulerService, 5000);
         schedulerService.gmTick(1500);
