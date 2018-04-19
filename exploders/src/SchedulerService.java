@@ -14,15 +14,24 @@ public class SchedulerService {
 
     public void gmTick(long frameMillis) {
         long currentTime = serverTime.addAndGet(frameMillis);
-        SortedMap<Long, Job> jobsToExecute = awaitingJobs.tailMap(currentTime);
+        // headMap - return a view of the portion of this map whose keys are strictly less than currentTime.
+        SortedMap<Long, Job> jobsToExecute = awaitingJobs.headMap(currentTime);
         for (Map.Entry<Long, Job> longJobEntry : jobsToExecute.entrySet()) {
-           //some code here
+            try {
+                longJobEntry.getValue().execute();
+            }
+            catch (Exception e) {
+                System.out.println("OMG, Job's execute method possibly is not overridden!");
+                e.printStackTrace();
+            }
+            awaitingJobs.remove(longJobEntry.getKey());
         }
         System.out.println("tick-tock. Time is " + serverTime);
     }
 
     public void submit(Job job, long timestamp) {
-        //some code here
+        awaitingJobs.put(timestamp, job);
+        System.out.println("new job added. It will be executed in " + timestamp + " milliseconds.");
     }
 
     public long getServerTime() {
